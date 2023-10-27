@@ -1,0 +1,83 @@
+= Cloudbees action: Scan with Snyk SCA
+
+Use this action to scan repositories for dependency vulnerabilities with the Snyk Open Source Software Composition Analysis (SCA) scanner.
+
+== Inputs
+
+[cols="2a,1a,1a,3a",options="header"]
+.Input details
+|===
+
+| Input name
+| Data type
+| Required?
+| Description
+
+| `orgname`
+| String
+| Yes
+| The Snyk organization name.
+
+| `token`
+| String
+| Yes
+| The Snyk client secret.
+
+| `language`
+| String
+| No
+| The language of your Git repository code base.
+Refer to the supported languages below.
+
+|===
+
+== Supported languages
+
+[cols="1a,1a",options="header"]
+.Supported languages with inputs
+|===
+
+| Supported language
+| Input format
+
+| Go
+| `LANGUAGE_GO`
+
+| Java
+| `LANGUAGE_JAVA`
+
+| JavaScript
+| `LANGUAGE_JS`
+
+| Ruby
+| `LANGUAGE_RUBY`
+
+|===
+
+== Usage example
+
+In your YAML file, add:
+
+[source,yaml]
+----
+
+      - name: Scan with Snyk SCA
+        uses: cloudbees-io/snyk-sca-scan-dependency@v1
+        with:
+          orgname: "snyk_organization_name"
+          token: ${{ secrets.SNYK_SECRET }}
+          language: "LANGUAGE_GO"
+
+----
+
+
+== License
+
+This code is made available under the 
+link:https://opensource.org/license/mit/[MIT license].
+
+== References
+
+* Learn more about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform-actions/latest/[using actions in CloudBees workflows].
+* Learn about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform/latest/[the CloudBees platform].
+
