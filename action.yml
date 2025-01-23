@@ -22,7 +22,6 @@ runs:
       uses: docker://public.ecr.aws/l7o7z1g8/actions/snyk-sca-actions:main-ee82730a3dc7c3feaac8078a170d3d9f1cfbe476
       shell: bash
       env:
-        CONFIG_JSON: '{\"metaInfo\":{\"url\":\"NA\",\"username\":\"${{ inputs.orgname }}\",\"password\":\"NA\",\"client_secret\":\"${{ inputs.token }}\",\"toolName\":\"snyksca\"},\"orchestratorInfo\":{\"assetType\":\"CODE\",\"assetIdentifier\":\"${{ cloudbees.scm.repositoryUrl }}\",\"profileIdentifier\":\"${{ cloudbees.scm.branch }}\",\"language\":\"${{ inputs.language }}\"},\"metaInformation\":{\"actor\":\"SCM-Bot\",\"commit_id\":\"${{ cloudbees.scm.sha }}\",\"tenent_info\":\"NA\",\"scanner_type\":\"SCA\"}}'
         TOKEN_ID: ${{ inputs.gh-secret-access-token }}
         RUN_ID: ${{ cloudbees.run_id }}
         STEP_ID: ${{step.internal.id}}
@@ -38,6 +37,19 @@ runs:
         then
           git config --global url."https://${TOKEN_ID}@github.com".insteadOf  "https://github.com"
         fi
+
+        # fetch checkedout repo url and branch into assetIdentifier and profileIdentifier
+        assetIdentifier=$(git config --get remote.origin.url)
+        currentBranch=$(git branch | grep "*")
+        profileIdentifier=${currentBranch:2}
+
+        
+        CONFIG_JSON='{\"metaInfo\":{\"url\":\"NA\",\"username\":\"${{ inputs.orgname }}\",\"password\":\"NA\",\"client_secret\":\"${{ inputs.token }}\",\"toolName\":\"snyksca\"},\"orchestratorInfo\":{\"assetType\":\"CODE\",\"assetIdentifier\":\"'
+        CONFIG_JSON+=${assetIdentifier}
+        CONFIG_JSON+='\",\"profileIdentifier\":\"'
+        CONFIG_JSON+=${profileIdentifier}
+        CONFIG_JSON+=\",\"language\":\"${{ inputs.language }}\"},\"metaInformation\":{\"actor\":\"SCM-Bot\",\"commit_id\":\"${{ cloudbees.scm.sha }}\",\"tenent_info\":\"NA\",\"scanner_type\":\"SCA\"}}'
+
         cd /
         /bin/bash -c "java -jar ./executables/snyk-sca-analyzer.jar & while ! nc -z localhost 5001; do sleep 1; done && ./executables/orchestrator -scanConfig \"${CONFIG_JSON}\" execute-analyser && exit"
 
