@@ -48,7 +48,7 @@ runs:
         CONFIG_JSON+=${assetIdentifier}
         CONFIG_JSON+='\",\"profileIdentifier\":\"'
         CONFIG_JSON+=${profileIdentifier}
-        CONFIG_JSON+=\",\"language\":\"${{ inputs.language }}\"},\"metaInformation\":{\"actor\":\"SCM-Bot\",\"commit_id\":\"${{ cloudbees.scm.sha }}\",\"tenent_info\":\"NA\",\"scanner_type\":\"SCA\"}}'
+        CONFIG_JSON+='\",\"language\":\"${{ inputs.language }}\"},\"metaInformation\":{\"actor\":\"SCM-Bot\",\"commit_id\":\"${{ cloudbees.scm.sha }}\",\"tenent_info\":\"NA\",\"scanner_type\":\"SCA\"}}'
 
         cd /
         /bin/bash -c "java -jar ./executables/snyk-sca-analyzer.jar & while ! nc -z localhost 5001; do sleep 1; done && ./executables/orchestrator -scanConfig \"${CONFIG_JSON}\" execute-analyser && exit"
