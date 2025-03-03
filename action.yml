@@ -19,7 +19,7 @@ runs:
   steps:
     - id: run-orchestrator
       name: snyk sca
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/snyk-sca-actions:main-ee82730a3dc7c3feaac8078a170d3d9f1cfbe476
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/snyk-sca-actions:main-719929992375681f3216455cd7f1d8dd8ffe4470
       shell: bash
       env:
         CONFIG_JSON: '{\"metaInfo\":{\"url\":\"NA\",\"username\":\"${{ inputs.orgname }}\",\"password\":\"NA\",\"client_secret\":\"${{ inputs.token }}\",\"toolName\":\"snyksca\"},\"orchestratorInfo\":{\"assetType\":\"CODE\",\"assetIdentifier\":\"${{ cloudbees.scm.repositoryUrl }}\",\"profileIdentifier\":\"${{ cloudbees.scm.branch }}\",\"language\":\"${{ inputs.language }}\"},\"metaInformation\":{\"actor\":\"SCM-Bot\",\"commit_id\":\"${{ cloudbees.scm.sha }}\",\"tenent_info\":\"NA\",\"scanner_type\":\"SCA\"}}'
