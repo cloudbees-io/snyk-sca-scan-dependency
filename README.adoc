@@ -1,4 +1,4 @@
-= Cloudbees action: Scan with Snyk SCA
+= CloudBees action: Scan with Snyk SCA
 
 Use this action to scan repositories for dependency vulnerabilities with the Snyk Open Source Software Composition Analysis (SCA) scanner.
 
