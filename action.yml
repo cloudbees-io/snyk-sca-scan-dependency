@@ -32,6 +32,7 @@ runs:
         JWT_TOKEN: ${{ cloudbees.api.token }}
       run: |
         set -x
+        echo -e "\e[1msnyk-sca-scan-dependency is now legacy and is deprecated. Please use snyk-sca-plugin, instead. This legacy workflow will be retired on September 30th, 2026\e[0m"
         echo "RUN ID: ${{ cloudbees.run_id }}"
         echo "Job ID: ${{ job.id }}"
         echo "Step ID: ${{step.internal.id}}"
