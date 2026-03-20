@@ -1,5 +1,10 @@
 = CloudBees action: Scan with Snyk SCA
 
+[WARNING]
+====
+*DEPRECATED:* This workflow is now legacy and deprecated. Please use link:https://github.com/cloudbees-io/snyk-sca-plugin[snyk-sca-plugin] instead. This legacy workflow will be retired on September 30th, 2026.
+====
+
 Use this action to scan repositories for dependency vulnerabilities with the Snyk Open Source Software Composition Analysis (SCA) scanner.
 
 == Inputs
